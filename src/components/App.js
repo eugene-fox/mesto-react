@@ -1,6 +1,7 @@
 import { Header } from './Header';
 import { Main } from './Main';
 import { Footer } from './Footer';
+import { ImagePopup } from './ImagePopup';
 
 function App() {
   return (
@@ -66,15 +67,8 @@ function App() {
             </form>
           </section>
 
-          <section className="popup" id="fullSizeImage">
-            <div className="popup__image-container">
-              <figure className="popup__image-group">
-                <img className="popup__image" src="#" alt="Увеличенное изображение" />
-                <figcaption className="popup__image-title"></figcaption>
-              </figure>
-              <button type="button" aria-label="Закрыть окно" className="popup__close-button"></button>
-            </div>
-          </section>
+          <ImagePopup />
+
         </div>
       </div>
     </div>
