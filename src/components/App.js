@@ -49,7 +49,7 @@ function App() {
 
           <PopupWithForm name="update-avatar" title="Обновить аватар" buttonText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
             <div className="popup__inputs">
-              <input type="url" name="avatar-url" className="popup__input popup__input_type_avatar-url" value=""
+              <input type="url" name="avatar-url" className="popup__input popup__input_type_avatar-url"
                 autoComplete="off" placeholder="url" required minLength="2" maxLength="" />
               <span className="popup__error-message" id="avatar-url-error"></span>
             </div>
@@ -57,10 +57,10 @@ function App() {
 
           <PopupWithForm name="profile-edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
             <div className="popup__inputs">
-              <input type="text" name="name-of-user" className="popup__input popup__input_type_name" value="" autoComplete="off"
-                required minLength="2" maxlength="40" />
+              <input type="text" name="name-of-user" className="popup__input popup__input_type_name"  autoComplete="off"
+                required minLength="2" maxLength="40" />
               <span className="popup__error-message" id="name-of-user-error"></span>
-              <input type="text" name="description" className="popup__input popup__input_type_description" value=""
+              <input type="text" name="description" className="popup__input popup__input_type_description"
                 autoComplete="off" required minLength="2" maxLength="200" />
               <span className="popup__error-message" id="description-error"></span>
             </div>
@@ -68,10 +68,10 @@ function App() {
 
           <PopupWithForm name="add-card" title="Новое место" buttonText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
             <div className="popup__inputs">
-              <input type="text" name="name-of-place" className="popup__input popup__input_type_place-name" value=""
-                autocomplete="off" placeholder="Название" required minLength="2" maxLength="30" />
+              <input type="text" name="name-of-place" className="popup__input popup__input_type_place-name"
+                autoComplete="off" placeholder="Название" required minLength="2" maxLength="30" />
               <span className="popup__error-message" id="name-of-place-error"></span>
-              <input type="url" name="image-url" className="popup__input popup__input_type_image-link" value="" autoComplete="off"
+              <input type="url" name="image-url" className="popup__input popup__input_type_image-link"  autoComplete="off"
                 placeholder="Ссылка на картинку" required />
               <span className="popup__error-message" id="image-url-error"></span>
             </div>
