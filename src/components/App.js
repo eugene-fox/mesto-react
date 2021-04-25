@@ -57,7 +57,7 @@ function App() {
 
           <PopupWithForm name="profile-edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
             <div className="popup__inputs">
-              <input type="text" name="name-of-user" className="popup__input popup__input_type_name"  autoComplete="off"
+              <input type="text" name="name-of-user" className="popup__input popup__input_type_name" autoComplete="off"
                 required minLength="2" maxLength="40" />
               <span className="popup__error-message" id="name-of-user-error"></span>
               <input type="text" name="description" className="popup__input popup__input_type_description"
@@ -71,19 +71,13 @@ function App() {
               <input type="text" name="name-of-place" className="popup__input popup__input_type_place-name"
                 autoComplete="off" placeholder="Название" required minLength="2" maxLength="30" />
               <span className="popup__error-message" id="name-of-place-error"></span>
-              <input type="url" name="image-url" className="popup__input popup__input_type_image-link"  autoComplete="off"
+              <input type="url" name="image-url" className="popup__input popup__input_type_image-link" autoComplete="off"
                 placeholder="Ссылка на картинку" required />
               <span className="popup__error-message" id="image-url-error"></span>
             </div>
           </PopupWithForm>
 
-          <section className="popup" id="deleteConfirm">
-            <form name="delete-confirm" className="popup__container popup__container_deleteConfirm" noValidate>
-              <h3 className="popup__title">Вы уверены?</h3>
-              <button type="submit" className="popup__save-button popup__save-button_card">Да</button>
-              <button type="button" aria-label="Закрыть окно" className="popup__close-button"></button>
-            </form>
-          </section>
+          <PopupWithForm name="delete-confirm" title="Вы уверены?" buttonText="Да" onClose={closeAllPopups} />
 
           <ImagePopup
             card={selectedCard}
