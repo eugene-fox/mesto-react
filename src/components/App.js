@@ -10,7 +10,6 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  //В компоненте App добавьте стейт-переменную selectedCard
   const [selectedCard, setSelectedCard] = React.useState(null);
 
   const handleEditAvatarClick = () => {
@@ -25,24 +24,15 @@ function App() {
     console.log('Клик по кнопке добавления новой карточки.');
     setIsAddPlacePopupOpen(true);
   }
-  // Значение этой переменной должно задаваться из нового обработчика handleCardClick
   const handleCardClick = (card) => {
     setSelectedCard(card);
-    console.log('клик по карточке');
+    console.log('Клик по карточке');
   }
-
-  React.useEffect(() => {
-    console.log('Переменная изменилась')
-    console.log(selectedCard);
-  }, [selectedCard]);
-
-
 
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    //и сбрасываться из уже существующего closeAllPopups.
     setSelectedCard(null);
   }
 
@@ -51,8 +41,9 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header />
-          {/* Обработчик handleCardClick должен вызываться из компонента Card. Для этого его нужно «пробросить» в компонент Card сквозь компонент Main — в виде пропса onCardClick. */}
+
           <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
+
           <Footer />
 
           <PopupWithForm name="update-avatar" title="Обновить аватар" buttonText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
@@ -93,7 +84,6 @@ function App() {
             </form>
           </section>
 
-          {/* Значение selectedCard должно передаваться с помощью пропса card в компонент ImagePopup, где оно будет использоваться для определения наличия CSS-класса видимости и задания адреса изображения в теге img. Также у ImagePopup должен появиться пропс onClose. */}
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
         </div>
