@@ -5,10 +5,10 @@ const handelClick = () => {
 }
 
   return (
-    <li className="place-card" onClick={handelClick}>
+    <li className="place-card">
       <button type="button" aria-label="Удалить карточку" className="place-card__delete-button"></button>
       <img className="place-card__photo" src={card.link}
-        alt={card.name} />
+        alt={card.name} onClick={handelClick} />
       <div className="place-card__photo-description">
         <h2 className="place-card__photo-name">{card.name}</h2>
         <div className="place-card__like-section">
