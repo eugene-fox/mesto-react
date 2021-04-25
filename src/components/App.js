@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import { Header } from './Header';
 import { Main } from './Main';
@@ -13,20 +13,16 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handleEditAvatarClick = () => {
-    console.log('Клик по кнопке изменения аватара.');
     setIsEditAvatarPopupOpen(true);
   }
   const handleEditProfileClick = () => {
-    console.log('Клик по кнопке изменения заголовка и описания профиля.');
     setIsEditProfilePopupOpen(true);
   }
   const handleAddPlaceClick = () => {
-    console.log('Клик по кнопке добавления новой карточки.');
     setIsAddPlacePopupOpen(true);
   }
   const handleCardClick = (card) => {
     setSelectedCard(card);
-    console.log('Клик по карточке');
   }
 
   const closeAllPopups = () => {
