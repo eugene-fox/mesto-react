@@ -24,7 +24,7 @@ export function Main(props) {
                 <div className="profile__information">
                     <div className="profile__avatar">
                         <img className="profile__avatar-picture" src={profileAvatar}
-                            alt="Фотография Жака-Ива Кусто" />
+                            alt={profileName} />
                         <button type="button" aria-label="Изменить изображение профиля" className="profile__avatar-edit" onClick={props.onEditAvatar} />
                     </div>
                     <h1 className="profile__name">{profileName}</h1>
@@ -35,7 +35,7 @@ export function Main(props) {
             </section>
             <section className="galery">
                 <ul className="galery__places">
-                    {cards.map((card, i) => (
+                    {cards.map((card) => (
                         <Card key={card._id} card={card} onCardClick={props.onCardClick}/>
                     ))}
                 </ul>
