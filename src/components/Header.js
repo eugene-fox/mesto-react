@@ -1,6 +1,5 @@
-import headerLogoPath from '../images/header-logo.svg'; //Путь к изображению внутри сборки
+import headerLogoPath from '../images/header-logo.svg';
 
-//Функциональный компоненет заголовка
 export function Header() {
     return (
         <header className="header">
