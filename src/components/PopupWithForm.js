@@ -2,10 +2,10 @@ import React from 'react';
 
 export function PopupWithForm({name, title ,buttonText, children, isOpen, onClose}) {
 
-    // Доделать закрытие по Esc
+    // Доделать закрытие по Esc и оверлею
 
     return (
-        <section className={`popup popup_type_${name} ${isOpen && "popup_opened"}`} onMouseDown={onClose}>
+        <section className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}>
             <form name={name} className="popup__container popup__container_profile" noValidate>
                 <h3 className="popup__title">{title}</h3>
                 {children}

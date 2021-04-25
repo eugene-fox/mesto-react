@@ -1,21 +1,22 @@
 import React from 'react';
-import avatarPicturePath from '../images/avatar.jpg';
 import { api } from '../utils/Api';
+import { Card } from '../components/Card';
 
 export function Main(props) {
-const [profileAvatar, setProfileAvatar] = React.useState('');
-const [profileName, setProfileName] = React.useState('');
-const [profileDescription, setProfileDescription] = React.useState('');
+    const [profileAvatar, setProfileAvatar] = React.useState('');
+    const [profileName, setProfileName] = React.useState('');
+    const [profileDescription, setProfileDescription] = React.useState('');
+    const [cards, setCards] = React.useState([]);
 
-React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCards()])
-    .then(([userData, cardData]) => {
-        console.log(userData);
-        setProfileAvatar(userData.avatar);
-        setProfileName(userData.name);
-        setProfileDescription(userData.about);
-    }).catch(err => console.log(err));
-}, []);
+    React.useEffect(() => {
+        Promise.all([api.getUserInfo(), api.getCards()])
+            .then(([userData, cardData]) => {
+                setProfileAvatar(userData.avatar);
+                setProfileName(userData.name);
+                setProfileDescription(userData.about);
+                setCards(cardData);
+            }).catch(err => console.log(err));
+    }, []);
 
     return (
         <main>
@@ -33,7 +34,11 @@ React.useEffect(() => {
                 </div>
             </section>
             <section className="galery">
-                <ul className="galery__places"></ul>
+                <ul className="galery__places">
+                    {cards.map((card, i) => (
+                        <Card key={card._id} card={card} onCardClick={props.onCardClick}/>
+                    ))}
+                </ul>
             </section>
         </main>
     );

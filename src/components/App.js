@@ -10,6 +10,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  //В компоненте App добавьте стейт-переменную selectedCard
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   const handleEditAvatarClick = () => {
     console.log('Клик по кнопке изменения аватара.');
@@ -23,11 +25,25 @@ function App() {
     console.log('Клик по кнопке добавления новой карточки.');
     setIsAddPlacePopupOpen(true);
   }
+  // Значение этой переменной должно задаваться из нового обработчика handleCardClick
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    console.log('клик по карточке');
+  }
+
+  React.useEffect(() => {
+    console.log('Переменная изменилась')
+    console.log(selectedCard);
+  }, [selectedCard]);
+
+
 
   const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    //и сбрасываться из уже существующего closeAllPopups.
+    setSelectedCard(null);
   }
 
   return (
@@ -35,24 +51,25 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header />
-          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
+          {/* Обработчик handleCardClick должен вызываться из компонента Card. Для этого его нужно «пробросить» в компонент Card сквозь компонент Main — в виде пропса onCardClick. */}
+          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
           <Footer />
 
           <PopupWithForm name="update-avatar" title="Обновить аватар" buttonText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
             <div className="popup__inputs">
               <input type="url" name="avatar-url" className="popup__input popup__input_type_avatar-url" value=""
-                autocomplete="off" placeholder="url" required minlength="2" maxlength="" />
+                autoComplete="off" placeholder="url" required minLength="2" maxLength="" />
               <span className="popup__error-message" id="avatar-url-error"></span>
             </div>
           </PopupWithForm>
 
           <PopupWithForm name="profile-edit" title="Редактировать профиль" buttonText="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
             <div className="popup__inputs">
-              <input type="text" name="name-of-user" className="popup__input popup__input_type_name" value="" autocomplete="off"
-                required minlength="2" maxlength="40" />
+              <input type="text" name="name-of-user" className="popup__input popup__input_type_name" value="" autoComplete="off"
+                required minLength="2" maxlength="40" />
               <span className="popup__error-message" id="name-of-user-error"></span>
               <input type="text" name="description" className="popup__input popup__input_type_description" value=""
-                autocomplete="off" required minlength="2" maxlength="200" />
+                autoComplete="off" required minLength="2" maxLength="200" />
               <span className="popup__error-message" id="description-error"></span>
             </div>
           </PopupWithForm>
@@ -60,23 +77,24 @@ function App() {
           <PopupWithForm name="add-card" title="Новое место" buttonText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
             <div className="popup__inputs">
               <input type="text" name="name-of-place" className="popup__input popup__input_type_place-name" value=""
-                autocomplete="off" placeholder="Название" required minlength="2" maxlength="30" />
+                autocomplete="off" placeholder="Название" required minLength="2" maxLength="30" />
               <span className="popup__error-message" id="name-of-place-error"></span>
-              <input type="url" name="image-url" className="popup__input popup__input_type_image-link" value="" autocomplete="off"
+              <input type="url" name="image-url" className="popup__input popup__input_type_image-link" value="" autoComplete="off"
                 placeholder="Ссылка на картинку" required />
               <span className="popup__error-message" id="image-url-error"></span>
             </div>
           </PopupWithForm>
 
           <section className="popup" id="deleteConfirm">
-            <form name="delete-confirm" className="popup__container popup__container_deleteConfirm" novalidate>
+            <form name="delete-confirm" className="popup__container popup__container_deleteConfirm" noValidate>
               <h3 className="popup__title">Вы уверены?</h3>
               <button type="submit" className="popup__save-button popup__save-button_card">Да</button>
               <button type="button" aria-label="Закрыть окно" className="popup__close-button"></button>
             </form>
           </section>
 
-          <ImagePopup />
+          {/* Значение selectedCard должно передаваться с помощью пропса card в компонент ImagePopup, где оно будет использоваться для определения наличия CSS-класса видимости и задания адреса изображения в теге img. Также у ImagePopup должен появиться пропс onClose. */}
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
         </div>
       </div>
