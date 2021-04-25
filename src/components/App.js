@@ -38,7 +38,12 @@ function App() {
         <div className="page__content">
           <Header />
 
-          <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
+          <Main
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+          />
 
           <Footer />
 
@@ -80,7 +85,10 @@ function App() {
             </form>
           </section>
 
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ImagePopup
+            card={selectedCard}
+            onClose={closeAllPopups}
+          />
 
         </div>
       </div>
