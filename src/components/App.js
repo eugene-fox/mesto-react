@@ -6,11 +6,24 @@ import { Footer } from './Footer';
 import { PopupWithForm } from './PopupWithForm';
 import { ImagePopup } from './ImagePopup';
 
+import { api } from '../utils/Api';
+
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+
+  //Стейт данных текущего пользователя
+  const [currentUser, setCurrentUser] = useState({});
+
+  React.useEffect(() => {
+    Promise.all([api.getUserInfo(), api.getCards()])
+        .then(([userData, cardData]) => {
+          setCurrentUser(userData);
+            // setCards(cardData);
+        }).catch(err => console.log(err));
+}, []);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
