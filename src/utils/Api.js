@@ -54,26 +54,16 @@ export default class Api {
       .then(this.checkResponse);
   }
 
-  //Добавдяем лайк на карточку на сервере
-  addLike(cardId) {
-    return fetch(`${this._url}${this._cohortId}/cards/likes/${cardId}`, {
-      method: 'PUT',
+  //Метод изменения статуса лайка
+  changeLikeCardStatus(cardId, isLike) {
+    return fetch(`${this._address}/${this._groupId}/cards/likes/${cardId}`, {
+      method: isLike ? 'PUT' : 'DELETE',
       headers: {
         authorization: this._token,
-        'Content-Type': 'application/json'
-      }
-    }).then(this.checkResponse)
-  }
-
-  //Удаляем лайк с карточки на сервере
-  removeLike(cardId) {
-    return fetch(`${this._url}${this._cohortId}/cards/likes/${cardId}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      }
-    }).then(this.checkResponse)
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(this.checkResponse);
   }
 
   //Получаем данные пользователя с сервера
