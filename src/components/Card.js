@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export function Card({ card, onCardClick }) {
+export function Card({ card, onCardClick, onCardLike }) {
 
   const currentUser = useContext(CurrentUserContext);
 
@@ -22,6 +22,10 @@ const cardLikeButtonClassName = `place-card__like-button ${isLiked && 'place-car
     onCardClick(card);
   }
 
+  const handleLikeClick = () => {
+    onCardLike(card);
+  }
+
   return (
     <li className="place-card">
       <button type="button" aria-label="Удалить карточку" className={cardDeleteButtonClassName} />
@@ -30,8 +34,13 @@ const cardLikeButtonClassName = `place-card__like-button ${isLiked && 'place-car
       <div className="place-card__photo-description">
         <h2 className="place-card__photo-name">{card.name}</h2>
         <div className="place-card__like-section">
-          <button type="button" aria-label="Поставить лайк" className={cardLikeButtonClassName} />
-          <span className="place-card__like-count">0</span>
+          <button
+           type="button"
+           aria-label="Поставить лайк"
+           className={cardLikeButtonClassName}
+           onClick={handleLikeClick}
+           />
+          <span className="place-card__like-count">{card.likes.length}</span>
         </div>
       </div>
     </li>

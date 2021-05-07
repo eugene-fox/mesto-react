@@ -56,7 +56,7 @@ export default class Api {
 
   //Метод изменения статуса лайка
   changeLikeCardStatus(cardId, isLike) {
-    return fetch(`${this._address}/${this._groupId}/cards/likes/${cardId}`, {
+    return fetch(`${this._url}/${this._cohortId}/cards/likes/${cardId}`, {
         method: isLike ? 'PUT' : 'DELETE',
         headers: {
           authorization: this._token,
