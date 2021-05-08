@@ -5,6 +5,7 @@ import { Main } from './Main';
 import { Footer } from './Footer';
 import { PopupWithForm } from './PopupWithForm';
 import { EditProfilePopup } from './EditProfilePopup';
+import { EditAvatarPopup } from './EditAvatarPopup';
 import { ImagePopup } from './ImagePopup';
 
 import { api } from '../utils/Api';
@@ -54,6 +55,14 @@ function App() {
     })
   }
 
+  const handleUpdateAvatar = (newAvatarUrl) => {
+    console.log(newAvatarUrl);
+    api.updataAvatar({ avatar: newAvatarUrl }).then(() => {
+      closeAllPopups();
+    })
+
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -70,13 +79,11 @@ function App() {
 
             <Footer />
 
-            <PopupWithForm name="update-avatar" title="Обновить аватар" buttonText="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-              <div className="popup__inputs">
-                <input type="url" name="avatar-url" className="popup__input popup__input_type_avatar-url"
-                  autoComplete="off" placeholder="url" required minLength="2" maxLength="" />
-                <span className="popup__error-message" id="avatar-url-error"></span>
-              </div>
-            </PopupWithForm>
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
 
             <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
@@ -105,7 +112,7 @@ function App() {
           </div>
         </div>
       </div>
-      </CurrentUserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
