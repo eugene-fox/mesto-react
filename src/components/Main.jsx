@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { api } from '../utils/Api';
 import { Card } from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Loader} from './Loader';
 
 export function Main({
   onEditAvatar,
@@ -10,13 +11,14 @@ export function Main({
   cards,
   onCardClick,
   onCardLike,
-  onCardDelete
+  onCardDelete,
+  isCardsLoading
 }) {
 
   const currentUser = useContext(CurrentUserContext);
 
   return (
-    <main>
+    <main className>
       <section className="profile">
         <div className="profile__information">
           <div className="profile__avatar">
@@ -46,6 +48,9 @@ export function Main({
         </div>
       </section>
       <section className="galery">
+
+        {isCardsLoading && <Loader />}
+
         <ul className="galery__places">
           {cards.map((card) => (
             <Card

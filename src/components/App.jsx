@@ -17,16 +17,20 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [isCardsLoading, setIsCardsLoading] = useState(false);
 
   //Стейт данных текущего пользователя
   const [currentUser, setCurrentUser] = useState({});
 
   React.useEffect(() => {
+    setIsCardsLoading(true);
     Promise.all([api.getUserInfo(), api.getCards()])
       .then(([userData, cardData]) => {
         setCurrentUser(userData);
-        // setCards(cardData);
-      }).catch(err => console.log(err));
+        setCards(cardData);
+      }).catch(err => console.log(err)).finally(() => {
+        setIsCardsLoading(false);
+      });
   }, []);
 
   const handleEditAvatarClick = () => {
@@ -56,7 +60,7 @@ function App() {
     })
   }
 
-  const handleUpdateAvatar = (newAvatarUrl, avatar) => {
+  const handleUpdateAvatar = (newAvatarUrl) => {
     console.log(newAvatarUrl);
     api.updataAvatar({ avatar: newAvatarUrl }).then(() => {
       currentUser.avatar = newAvatarUrl;
@@ -88,10 +92,6 @@ function App() {
     )
   }
 
-  // useEffect(() => {
-  //   console.log(cards)
-  // }, [cards]);
-
   const handleAddPlaceSubmit = (newCard) => {
     api.addCard(newCard).then((addedNewCard) => {
       setCards([addedNewCard, ...cards])
@@ -99,13 +99,6 @@ function App() {
       closeAllPopups();
     })
   }
-
-  React.useEffect(() => {
-    api.getCards()
-      .then((cardData) => {
-        setCards(cardData);
-      }).catch(err => console.log(err));
-  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -122,6 +115,7 @@ function App() {
               cards={cards}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
+              isCardsLoading={isCardsLoading}
             />
 
             <Footer />

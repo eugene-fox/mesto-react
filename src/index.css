@@ -20,6 +20,9 @@
 @import url("./blocks/profile/__edit-button/profile__edit-button.css");
 @import url("./blocks/profile/__add-button/profile__add-button.css");
 
+@import url("./blocks/loader/loader.css");
+@import url("./blocks/loader/loader__circle/loader__circle.css");
+
 @import url("./blocks/galery/galery.css");
 @import url("./blocks/galery/__places/galery__places.css");
 
