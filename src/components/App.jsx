@@ -55,9 +55,10 @@ function App() {
     })
   }
 
-  const handleUpdateAvatar = (newAvatarUrl) => {
+  const handleUpdateAvatar = (newAvatarUrl, avatar) => {
     console.log(newAvatarUrl);
     api.updataAvatar({ avatar: newAvatarUrl }).then(() => {
+      currentUser.avatar = newAvatarUrl;
       closeAllPopups();
     })
 
