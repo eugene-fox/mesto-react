@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Header } from './Header';
 import { Main } from './Main';
@@ -6,6 +6,7 @@ import { Footer } from './Footer';
 import { PopupWithForm } from './PopupWithForm';
 import { EditProfilePopup } from './EditProfilePopup';
 import { EditAvatarPopup } from './EditAvatarPopup';
+import { AddPlacePopup } from './AddPlacePopup';
 import { ImagePopup } from './ImagePopup';
 
 import { api } from '../utils/Api';
@@ -61,7 +62,6 @@ function App() {
       currentUser.avatar = newAvatarUrl;
       closeAllPopups();
     })
-
   }
 
   const [cards, setCards] = useState([]);
@@ -76,13 +76,28 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    debugger;
     api.deleteCard(card._id).then(
       () => {
-       setCards((state) => {
-        state.filter((c) => c._id !== card._id)
-       })
+
+        setCards((state) => {
+          return state.filter((c) => c._id !== card._id);
+        });
+
       }
     )
+  }
+
+  // useEffect(() => {
+  //   console.log(cards)
+  // }, [cards]);
+
+  const handleAddPlaceSubmit = (newCard) => {
+    api.addCard(newCard).then((addedNewCard) => {
+      setCards([addedNewCard, ...cards])
+    }).then(() => {
+      closeAllPopups();
+    })
   }
 
   React.useEffect(() => {
@@ -123,16 +138,11 @@ function App() {
               onUpdateUser={handleUpdateUser}
             />
 
-            <PopupWithForm name="add-card" title="Новое место" buttonText="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-              <div className="popup__inputs">
-                <input type="text" name="name-of-place" className="popup__input popup__input_type_place-name"
-                  autoComplete="off" placeholder="Название" required minLength="2" maxLength="30" />
-                <span className="popup__error-message" id="name-of-place-error"></span>
-                <input type="url" name="image-url" className="popup__input popup__input_type_image-link" autoComplete="off"
-                  placeholder="Ссылка на картинку" required />
-                <span className="popup__error-message" id="image-url-error"></span>
-              </div>
-            </PopupWithForm>
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
+            />
 
             <PopupWithForm name="delete-confirm" title="Вы уверены?" buttonText="Да" onClose={closeAllPopups} />
 
