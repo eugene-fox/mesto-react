@@ -14,9 +14,9 @@ export function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   );
 
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
 
-const cardLikeButtonClassName = `place-card__like-button ${isLiked && 'place-card__like-button_active'}`;
+  const cardLikeButtonClassName = `place-card__like-button ${isLiked && 'place-card__like-button_active'}`;
 
   const handelClick = () => {
     onCardClick(card);
@@ -33,22 +33,22 @@ const cardLikeButtonClassName = `place-card__like-button ${isLiked && 'place-car
   return (
     <li className="place-card">
       <button
-       type="button"
-       aria-label="Удалить карточку"
-       className={cardDeleteButtonClassName}
-       onClick={handleDeleteClick}
-       />
+        type="button"
+        aria-label="Удалить карточку"
+        className={cardDeleteButtonClassName}
+        onClick={handleDeleteClick}
+      />
       <img className="place-card__photo" src={card.link}
         alt={card.name} onClick={handelClick} />
       <div className="place-card__photo-description">
         <h2 className="place-card__photo-name">{card.name}</h2>
         <div className="place-card__like-section">
           <button
-           type="button"
-           aria-label="Поставить лайк"
-           className={cardLikeButtonClassName}
-           onClick={handleLikeClick}
-           />
+            type="button"
+            aria-label="Поставить лайк"
+            className={cardLikeButtonClassName}
+            onClick={handleLikeClick}
+          />
           <span className="place-card__like-count">{card.likes.length}</span>
         </div>
       </div>
