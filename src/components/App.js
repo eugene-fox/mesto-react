@@ -57,7 +57,7 @@ function App() {
     api.setUserInfo(userInfo).then((newUserInfo) => {
       setCurrentUser(newUserInfo);
       closeAllPopups();
-    })
+    }).catch(err => console.log(err));
   }
 
   const handleUpdateAvatar = (newAvatarUrl) => {
@@ -65,7 +65,7 @@ function App() {
       setCurrentUser(data);
       console.log(currentUser);
       closeAllPopups();
-    })
+    }).catch(err => console.log(err));
   }
 
   const [cards, setCards] = useState([]);
@@ -76,19 +76,17 @@ function App() {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    }).catch(err => console.log(err));
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id).then(
       () => {
-
         setCards((state) => {
           return state.filter((c) => c._id !== card._id);
         });
-
       }
-    )
+    ).catch(err => console.log(err));
   }
 
   const handleAddPlaceSubmit = (newCard) => {
@@ -96,7 +94,7 @@ function App() {
       setCards([addedNewCard, ...cards])
     }).then(() => {
       closeAllPopups();
-    })
+    }).catch(err => console.log(err));
   }
 
   return (
