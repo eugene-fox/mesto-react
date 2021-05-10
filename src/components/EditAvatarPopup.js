@@ -8,10 +8,6 @@ export function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    avatarRef.current.value = currentUser.avatar;
-  }, [currentUser]);
-
   function handleSubmit(e) {
     e.preventDefault();
     // Передаём значениe во внешний обработчик
