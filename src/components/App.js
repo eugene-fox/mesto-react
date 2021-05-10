@@ -22,7 +22,7 @@ function App() {
   //Стейт данных текущего пользователя
   const [currentUser, setCurrentUser] = useState({});
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsCardsLoading(true);
     Promise.all([api.getUserInfo(), api.getCards()])
       .then(([userData, cardData]) => {

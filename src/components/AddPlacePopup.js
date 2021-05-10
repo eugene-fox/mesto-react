@@ -20,6 +20,11 @@ export function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     onAddPlace({ name, link });
   }
 
+  useEffect(() => {
+    setName("");
+    setLink("");
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name="add-card"
