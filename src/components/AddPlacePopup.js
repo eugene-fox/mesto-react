@@ -38,7 +38,7 @@ export function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           placeholder="Название"
           required minLength="2"
           maxLength="30"
-          value={name === undefined ? "" : name}
+          value={name || ""}
           onChange={handleNameChange}
         />
         <span className="popup__error-message" id="name-of-place-error" />
@@ -49,7 +49,7 @@ export function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           autoComplete="off"
           placeholder="Ссылка на картинку"
           required
-          value={link === undefined ? "" : link}
+          value={link || ""}
           onChange={handleLinkChange}
         />
         <span className="popup__error-message" id="image-url-error" />
