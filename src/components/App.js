@@ -80,7 +80,6 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    debugger;
     api.deleteCard(card._id).then(
       () => {
 
