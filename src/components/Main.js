@@ -17,7 +17,7 @@ export function Main({
   const currentUser = useContext(CurrentUserContext);
 
   return (
-    <main className>
+    <main>
       <section className="profile">
         <div className="profile__information">
           <div className="profile__avatar">
