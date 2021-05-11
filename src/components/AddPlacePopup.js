@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { PopupWithForm } from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+export function AddPlacePopup({ isOpen, onClose, onAddPlace, isDataSending }) {
 
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
@@ -29,7 +29,7 @@ export function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     <PopupWithForm
       name="add-card"
       title="Новое место"
-      buttonText="Создать"
+      buttonText={isDataSending ? "Создание..." : "Создать"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

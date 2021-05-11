@@ -2,7 +2,7 @@ import { PopupWithForm } from './PopupWithForm';
 import { useRef, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+export function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isDataSending }) {
 
   const avatarRef = useRef();
 
@@ -18,7 +18,7 @@ export function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     <PopupWithForm
       name="update-avatar"
       title="Обновить аватар"
-      buttonText="Сохранить"
+      buttonText={isDataSending ? "Сохранение..." : "Сохранить"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

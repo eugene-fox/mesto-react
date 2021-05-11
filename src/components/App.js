@@ -18,6 +18,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isCardsLoading, setIsCardsLoading] = useState(false);
+  const [isDataSending, setIsDataSending] = useState(false);
 
   //Стейт данных текущего пользователя
   const [currentUser, setCurrentUser] = useState({});
@@ -54,18 +55,24 @@ function App() {
   }
 
   const handleUpdateUser = (userInfo) => {
+    setIsDataSending(true);
     api.setUserInfo(userInfo).then((newUserInfo) => {
       setCurrentUser(newUserInfo);
       closeAllPopups();
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err)).finally(() => {
+      setIsDataSending(false);
+    });
   }
 
   const handleUpdateAvatar = (newAvatarUrl) => {
+    setIsDataSending(true);
     api.updataAvatar({ avatar: newAvatarUrl }).then((data) => {
       setCurrentUser(data);
       console.log(currentUser);
       closeAllPopups();
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err)).finally(() => {
+      setIsDataSending(false);
+    });
   }
 
   const [cards, setCards] = useState([]);
@@ -90,11 +97,14 @@ function App() {
   }
 
   const handleAddPlaceSubmit = (newCard) => {
+    setIsDataSending(true);
     api.addCard(newCard).then((addedNewCard) => {
       setCards([addedNewCard, ...cards])
     }).then(() => {
       closeAllPopups();
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err)).finally(() => {
+      setIsDataSending(false);
+    });
   }
 
   return (
@@ -121,18 +131,21 @@ function App() {
               isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
               onUpdateAvatar={handleUpdateAvatar}
+              isDataSending={isDataSending}
             />
 
             <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
               onClose={closeAllPopups}
               onUpdateUser={handleUpdateUser}
+              isDataSending={isDataSending}
             />
 
             <AddPlacePopup
               isOpen={isAddPlacePopupOpen}
               onClose={closeAllPopups}
               onAddPlace={handleAddPlaceSubmit}
+              isDataSending={isDataSending}
             />
 
             <PopupWithForm name="delete-confirm" title="Вы уверены?" buttonText="Да" onClose={closeAllPopups} />
